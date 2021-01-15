@@ -6,8 +6,14 @@
 image: node:10.15.3
 
 pipelines:
-  pull-requests:
-    '**': #this runs as default for any branch not elsewhere defined
+
+  tags:
+    release-*:
+      - step:
+          script:
+            - echo "A tag triggered build"
+  branches:
+    master:
       - step:
           name: Build and Test for any branch
           caches:
@@ -15,9 +21,9 @@ pipelines:
           script:
             - npm install
             - npm test
-    feature/*: #any branch with a feature prefix
+    develop:
       - step:
-          name: Build and Test the new features
+          name: Build and Test for any branch
           caches:
             - node
           script:
