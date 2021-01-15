@@ -6,8 +6,8 @@
 image: node:10.15.3
 
 pipelines:
-  pull-requests:
-    '**': #this runs as default for any branch not elsewhere defined
+  branches:
+    master:
       - step:
           name: Build and Test for any branch
           caches:
@@ -15,9 +15,9 @@ pipelines:
           script:
             - npm install
             - npm test
-    feature/*: #any branch with a feature prefix
+    developer:
       - step:
-          name: Build and Test the new features
+          name: Build and Test for any branch
           caches:
             - node
           script:
