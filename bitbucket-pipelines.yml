@@ -6,7 +6,19 @@
 image: node:10.15.3
 
 pipelines:
-
+  custom: # Pipelines that are triggered manually
+    build-verification-testing: # The name that is displayed in the list in the Bitbucket Cloud GUI
+      - step:
+          name: Build and Test for pull resquests
+          caches:
+            - node
+          script:
+            - npm install
+            - npm test
+    deployment-to-prod: # Another display name
+      - step:
+          script:
+            - echo "Manual triggers for deployments are awesome!"
   tags:
     release-*:
       - step:
