@@ -6,10 +6,19 @@
 image: node:10.15.3
 
 pipelines:
-  default:
-    - parallel:
-        - step:
-            name: Build and Test
+  pull-requests:
+    '**': #this runs as default for any branch not elsewhere defined
+      - step:
+          name: Build and Test for any branch
+            caches:
+              - node
+            script:
+              - npm install
+              - npm test 
+            - ...
+    feature/*: #any branch with a feature prefix
+      - step:
+          name: Build and Test the new features
             caches:
               - node
             script:
